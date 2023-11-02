@@ -1,0 +1,31 @@
+.container {
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-body {
+    width: 100%;
+  }
+  
+  .card-text {
+    flex: 1;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+  body {
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .actions {
+    display: flex;
+  }
+  
+  .completed {
+    text-decoration: line-through;
+  }
+  
