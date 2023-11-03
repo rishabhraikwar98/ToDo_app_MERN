@@ -11,6 +11,7 @@ function App() {
   const [showNewModal,setShowNewModal] = useState(false)
   const [showEditModal,setShowEditModal] = useState(false)
   const [selected,setSelected] = useState("")
+  const [isComplete,setIsComplete] = useState(false)
   useEffect(() => {
     fetchTodos();
   }, []);
@@ -68,10 +69,11 @@ function App() {
       setShowEditModal(false)
       return
     }
-    const payload = {task:newTodo.trim(),completed:false}
+    const payload = {task:newTodo.trim(),completed:isComplete}
     axios.patch(`http://localhost:5500/api/todos/${selected}`,payload).then(() => {
       fetchTodos()
       setNewTodo("")
+      setIsComplete(false)
       setShowEditModal(false)
     }).catch(err => {
       console.error(err);
@@ -81,6 +83,7 @@ function App() {
     setShowEditModal(true)
     setNewTodo(todo.task)
     setSelected(todo._id)
+    setIsComplete(todo.completed)
   }
 
   return (
@@ -108,13 +111,13 @@ function App() {
         </Col>
       </Row>
       {/* add new modal */}
-      <Modal show={showNewModal} onHide={()=>{setShowNewModal(false)}}>
+      <Modal show={showNewModal} onHide={()=>{setShowNewModal(false)}} centered>
         <Modal.Header closeButton>
           <Modal.Title>Add New ToDo</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group controlId="newTodo">
-            <Form.Control
+            <Form.Control2
               type="text"
               placeholder="Enter a new todo"
               value={newTodo}
@@ -133,7 +136,7 @@ function App() {
       </Modal>
 
       {/* update modal */}
-      <Modal show={showEditModal} onHide={()=>{setShowEditModal(false)}}>
+      <Modal show={showEditModal} onHide={()=>{setShowEditModal(false)}} centered>
         <Modal.Header closeButton>
           <Modal.Title>Update ToDo</Modal.Title>
         </Modal.Header>
