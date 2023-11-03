@@ -15,7 +15,9 @@ const app = express();
 app.use(express.json());
 app.use(cors())
 app.use("/api",todoRouter)
-
+app.get('/',(req,res)=>{
+  res.json({message:"Hello"})
+})
 app.listen(PORT, () => {
   console.log(`Server is running on Port ${PORT}`);
 });
