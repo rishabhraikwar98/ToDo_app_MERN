@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import axios from 'axios';
 import TodoCard from './components/TodoCard';
-
+import { API } from './API';
 function App() {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
@@ -17,7 +17,7 @@ function App() {
   }, []);
 
   const fetchTodos = () => {
-    axios.get('http://localhost:5500/api/todos')
+    axios.get(API.base)
       .then(res => {
         setTodos(res.data);
       })
@@ -33,7 +33,7 @@ function App() {
       return
     }
     const payload = { task: newTodo.trim(), completed:false}
-    axios.post('http://localhost:5500/api/todos',payload)
+    axios.post(API.base,payload)
       .then(res => {
         fetchTodos();
         setNewTodo('');
@@ -46,7 +46,7 @@ function App() {
   };
 
   const deleteTodo = (id) => {
-    axios.delete(`http://localhost:5500/api/todos/${id}`)
+    axios.delete(API.base+`/${id}`)
       .then(() => {
         fetchTodos()
       })
@@ -57,7 +57,7 @@ function App() {
 
   const markComplete = (id)=>{
     const payload = {completed:true}
-    axios.patch(`http://localhost:5500/api/todos/${id}`,payload).then(() => {
+    axios.patch(API.base+`/${id}`,payload).then(() => {
       fetchTodos()
     }).catch(err => {
       console.error(err);
@@ -70,7 +70,7 @@ function App() {
       return
     }
     const payload = {task:newTodo.trim(),completed:isComplete}
-    axios.patch(`http://localhost:5500/api/todos/${selected}`,payload).then(() => {
+    axios.patch(API.base+`/${selected}`,payload).then(() => {
       fetchTodos()
       setNewTodo("")
       setIsComplete(false)
@@ -117,7 +117,7 @@ function App() {
         </Modal.Header>
         <Modal.Body>
           <Form.Group controlId="newTodo">
-            <Form.Control2
+            <Form.Control
               type="text"
               placeholder="Enter a new todo"
               value={newTodo}

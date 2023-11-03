@@ -5,7 +5,7 @@ import { connect } from "./db";
 import todoRouter  from "./routes/todoRoutes"
 configDotenv();
 const cors = require("cors")
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5500;
 // connecting mongo DB
 connect();
 
