@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import axios from 'axios';
 import TodoCard from './components/TodoCard';
-import { API } from './API';
+import { BASE_URL } from './API';
 function App() {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
@@ -17,7 +17,7 @@ function App() {
   }, []);
 
   const fetchTodos = () => {
-    axios.get(API.base)
+    axios.get(BASE_URL)
       .then(res => {
         setTodos(res.data);
       })
@@ -33,7 +33,7 @@ function App() {
       return
     }
     const payload = { task: newTodo.trim(), completed:false}
-    axios.post(API.base,payload)
+    axios.post(BASE_URL,payload)
       .then(res => {
         fetchTodos();
         setNewTodo('');
@@ -46,7 +46,7 @@ function App() {
   };
 
   const deleteTodo = (id) => {
-    axios.delete(API.base+`/${id}`)
+    axios.delete(BASE_URL+`/${id}`)
       .then(() => {
         fetchTodos()
       })
@@ -57,7 +57,7 @@ function App() {
 
   const markComplete = (id)=>{
     const payload = {completed:true}
-    axios.patch(API.base+`/${id}`,payload).then(() => {
+    axios.patch(BASE_URL+`/${id}`,payload).then(() => {
       fetchTodos()
     }).catch(err => {
       console.error(err);
@@ -70,7 +70,7 @@ function App() {
       return
     }
     const payload = {task:newTodo.trim(),completed:isComplete}
-    axios.patch(API.base+`/${selected}`,payload).then(() => {
+    axios.patch(BASE_URL+`/${selected}`,payload).then(() => {
       fetchTodos()
       setNewTodo("")
       setIsComplete(false)
