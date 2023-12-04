@@ -1,1 +1,1 @@
-export const BASE_URL = "http://localhost:5500/api/todos"
+export const BASE_URL = "https://todo-app-mern-backend-tf62.onrender.com/api/todos"
